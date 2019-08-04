@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+    
+    table.table.table-striped
+        thead
+            tr
+                th ID
+                th Name
+                th Email
+                th Mobile
+                th Password
+                th Action
+        tbody
+         - for(let i=0;i<data.length;i++){
+                tr
+                    td=data[i]._id
+                    td=data[i].name
+                    td=data[i].email
+                    td=data[i].mobile
+                    td=data[i].password
+                    td
+                        a.gb-btn.btn.btn-success(href="#",title="Edit")
+                            i.fa.fa-edit
+                        a.gb-btn.btn.btn-info(href="#",title="View")
+                            i.fa.fa-eye
+                        button.gb-btn.btn.btn-danger(title="Delete")
+                            i.fa.fa-trash
+         - }
+            
+            

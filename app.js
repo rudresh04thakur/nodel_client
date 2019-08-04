@@ -3,9 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+////MongoDb Connection
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/node_client', {
+  useNewUrlParser: true
+});
 
-const mongoose = require('mongoose');
-var con = mongoose.connect('mongodb://localhost:27017/node_client',{ useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log("Connection Done")
+});
+
+//Routing
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -23,7 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req,res,next){
-  req.db = con;
+  req.db = db;
   next();
 });
 
