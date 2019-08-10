@@ -54,4 +54,41 @@ router.get('/list', function (req, res, next) {
   })
 });
 
+router.get('/view/:id',function(req,res,next){
+  var userModel = mongoose.model('user', Users);
+  userModel.findOne({'_id':req.params.id},function(err,data) {
+    if (err) {
+      console.log("Error ", err);
+    } else {
+      console.log(data)
+      res.render('users/view',{'data':data});
+    }
+  })
+})
+
+router.delete('/delete/:id',function(req,res,next){
+  var userModel = mongoose.model('user', Users);
+  userModel.remove({'_id':req.params.id},function(err) {
+    if (err) {
+      console.log("Error ", err);
+    } else {
+      res.redirect('/users/list');
+    }
+  })
+})
+
+// router.post('/delete/:id',function(req,res,next){
+//   var userModel = mongoose.model('user', Users);
+//   userModel.remove({'_id':req.params.id},function(err) {
+//     if (err) {
+//       console.log("Error ", err);
+//     } else {
+//       res.redirect('/users/list');
+//     }
+//   })
+// })
+
+
+
+
 module.exports = router;

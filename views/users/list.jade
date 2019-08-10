@@ -22,10 +22,14 @@ block content
                     td
                         a.gb-btn.btn.btn-success(href="#",title="Edit")
                             i.fa.fa-edit
-                        a.gb-btn.btn.btn-info(href="#",title="View")
+                        a.gb-btn.btn.btn-info(href="/users/view/"+data[i]['_id'],title="View")
                             i.fa.fa-eye
-                        button.gb-btn.btn.btn-danger(title="Delete")
-                            i.fa.fa-trash
+                        form(method="post",action="/users/delete/"+data[i]._id+"?_method=DELETE")
+                            button.gb-btn.btn.btn-danger(title="Delete",type="submit")
+                                i.fa.fa-trash
+                        //- form(method="post",action="/users/delete/"+data[i]._id)
+                        //-     button.gb-btn.btn.btn-danger(title="Delete",type="submit")
+                        //-         i.fa.fa-trash
          - }
             
             
