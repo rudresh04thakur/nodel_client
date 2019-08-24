@@ -7,18 +7,23 @@ block content
             padding: 5px;
             border-radius: 10px
         } 
-    form.form.col-md-6.offset-md-3(action="/users/register",method="post")
+    form.form.col-md-6.offset-md-3(action=data?"/users/update/"+data['_id']:"/users/register" ,method="post")
         .form-group 
             label(for="Name") Name
-            input.form-control(type="text",name="name",placeholder="Name")
+            input.form-control(type="text", value=data?data['name']:"", name="name",placeholder="Name")
         .form-group 
             label(for="Email") Email
-            input.form-control(type="email",name="email",placeholder="Email")
+            input.form-control(type="email",value=data?data['email']:"",name="email",placeholder="Email")
         .form-group 
             label(for="password") Password
-            input.form-control(type="password",name="password",placeholder="Password")
+            input.form-control(type="password",value=data?data['password']:"",name="password",placeholder="Password")
         .form-group 
             label(for="mobile") Mobile
-            input.form-control(type="text",name="mobile",placeholder="Mobile")
+            input.form-control(type="text",name="mobile",value=data?data['mobile']:"",placeholder="Mobile")
         .form-group 
-            button.btn.btn-success(type="submit") Register
+            - if(data){
+                button.btn.btn-success(type="submit") Update
+            - }else{
+                button.btn.btn-success(type="submit") Register
+            - }
+            

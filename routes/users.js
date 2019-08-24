@@ -68,14 +68,61 @@ router.get('/view/:id',function(req,res,next){
 
 router.delete('/delete/:id',function(req,res,next){
   var userModel = mongoose.model('user', Users);
-  userModel.remove({'_id':req.params.id},function(err) {
+  if(req.params.id == 'all'){
+    userModel.remove(function(err) {
+      if (err) {
+        console.log("Error ", err);
+      } else {
+        res.redirect('/users/list');
+      }
+    })
+  }else if(req.params.id == 'check'){
+    userModel.remove({'_id':{ $in: req.body.checkbox}},function(err) {
+      if (err) {
+        console.log("Error ", err);
+      } else {
+        res.redirect('/users/list');
+      }
+    })
+  }else{
+    userModel.remove({'_id':req.params.id},function(err) {
+      if (err) {
+        console.log("Error ", err);
+      } else {
+        res.redirect('/users/list');
+      }
+    })
+  }  
+})
+
+router.get('/edit/:id',function(req,res,next){
+  var userModel = mongoose.model('user', Users);
+  userModel.findOne({'_id':req.params.id},function(err,data) {
     if (err) {
       console.log("Error ", err);
     } else {
-      res.redirect('/users/list');
+      console.log(data)
+      res.render('users/register',{'data':data});
     }
   })
 })
+
+
+router.post('/update/:id', function (req, res, next) {
+  var userModel = mongoose.model('user', Users);
+  var user = new userModel(req.body);
+  //console.log(req.body)
+  user.updateOne({'_id':req.params.id},req.body,function (err,data) {
+    if (err) {
+      res.send("Error ", err);
+    } else {
+      console.log(data)
+      res.redirect('/users/list')
+    }
+  })
+});
+
+
 
 // router.post('/delete/:id',function(req,res,next){
 //   var userModel = mongoose.model('user', Users);

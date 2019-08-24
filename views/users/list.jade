@@ -1,10 +1,37 @@
 extends ../layout
 
 block content
-    
+
+    script.
+        $(document).ready(function(){
+            $('.checkBox').click(function(event){
+                let flag = true;
+                if(this.checked){
+                    $('#form').append('<input type="hidden" name="checkbox" id="'+this.value+'" value="'+this.value+'">')
+                }else{
+                    $('#'+this.value).remove();
+                }
+
+                for(let e=0; e < $('.checkBox').length;e++){
+                    if($('.checkBox')[e].checked){
+                        $('#form').attr('action','/users/delete/check?_method=DELETE')
+                        flag = false;
+                    }
+                }
+                if(flag){
+                    $('#form').attr('action','/users/delete/all?_method=DELETE')
+                }
+            })
+        })
+
     table.table.table-striped
         thead
             tr
+                th
+                    form#form(method="post",action="/users/delete/all?_method=DELETE")
+                        button.gb-btn.btn.btn-danger(title="Delete",type="submit")
+                            i.fa.fa-trash
+                    
                 th ID
                 th Name
                 th Email
@@ -14,13 +41,15 @@ block content
         tbody
          - for(let i=0;i<data.length;i++){
                 tr
+                    td
+                        input.checkBox(type="checkbox", name="checkbox", value=data[i]['_id'])
                     td=data[i]._id
                     td=data[i].name
                     td=data[i].email
                     td=data[i].mobile
                     td=data[i].password
                     td
-                        a.gb-btn.btn.btn-success(href="#",title="Edit")
+                        a.gb-btn.btn.btn-success(href="/users/edit/"+data[i]['_id'],title="Edit")
                             i.fa.fa-edit
                         a.gb-btn.btn.btn-info(href="/users/view/"+data[i]['_id'],title="View")
                             i.fa.fa-eye
