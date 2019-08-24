@@ -21,7 +21,7 @@ const Users = new mongoose.Schema({
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
+  res.redirect('/users/list');
 });
 
 router.get('/register', function (req, res, next) {
@@ -135,6 +135,21 @@ router.post('/update/:id', function (req, res, next) {
 //   })
 // })
 
+router.get('/login',function(req,res,next){
+  res.render('users/login')
+})
+
+router.post('/login',function(req,res,next){
+  var userModel = mongoose.model('user', Users);
+  userModel.findOne({'email':req.body.email,'password':req.body.password},function(err,data) {
+    if (err) {
+      console.log("Error ", err);
+    } else {
+      console.log(data)
+      res.redirect('/admin');
+    }
+  })
+})
 
 
 

@@ -21,6 +21,7 @@ db.once('open', function () {
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//app.use('/admin', express.static('./node_modules/admin-lte-express/public'))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
@@ -45,6 +47,9 @@ app.use(function(req,res,next){
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/admin',adminRouter);   
+//app.use('/admin', require('admin-lte-express'));
+
 //
 /*
   --save  //Save in current dependancies
