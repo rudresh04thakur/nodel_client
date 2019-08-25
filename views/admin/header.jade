@@ -175,7 +175,7 @@ header.main-header
             li.user-header
               img.img-circle(src='dist/img/user2-160x160.jpg' alt='User Image')
               p
-                | Alexander Pierce - Web Developer
+                | #{data}
                 small Member since Nov. 2012
             // Menu Body
             li.user-body
@@ -192,7 +192,7 @@ header.main-header
               .pull-left
                 a.btn.btn-default.btn-flat(href='#') Profile
               .pull-right
-                a.btn.btn-default.btn-flat(href='#') Sign out
+                a.btn.btn-default.btn-flat(href='/users/logout') Sign out
         // Control Sidebar Toggle Button
         li
           a(href='#' data-toggle='control-sidebar')

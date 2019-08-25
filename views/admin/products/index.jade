@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+    div.col-md-12
+        div.box
+            div.box-header.with-border
+                h3.box-title Product List
+            div.box-body
+                table.table.table-bordered
+                    tr
+                        th(style="width: 10px") #
+                        th Image
+                        th Name
+                        th Price
+                        th Weight
+                        th Type
+                        th(style="width: 40px") Action
+                     - for(let i=0;i<data.length;i++){
+                        tr
+                            td=data[i]['_id']
+                            td 
+                                img(src=data[i]['image'], width="100px")
+                            td=data[i]['name']
+                            td=data[i]['price']
+                            td=data[i]['weight']
+                            td=data[i]['type']
+                            td
+                                a.gb-btn.btn.btn-success(href="/products/edit/"+data[i]['_id'],title="Edit")
+                                    i.fa.fa-edit
+                                a.gb-btn.btn.btn-info(href="/products/view/"+data[i]['_id'],title="View")
+                                    i.fa.fa-eye
+                                form(method="post",action="/products/delete/"+data[i]._id+"?_method=DELETE")
+                                    button.gb-btn.btn.btn-danger(title="Delete",type="submit")
+                                        i.fa.fa-trash
+                     - }
+                            

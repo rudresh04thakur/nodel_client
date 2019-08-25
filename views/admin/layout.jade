@@ -19,7 +19,20 @@ html
             include ./header.jade
             include ./sidebar.jade
             div.content-wrapper
-                block content
+                section.content-header
+                    h1  Simple Tables
+                        small preview of simple tables
+                    ol.breadcrumb
+                        li
+                            a(href="#")
+                                i.fa.fa-dashboard
+                                | Home
+                        li 
+                            a(href="#") Tables
+                        li.active Simple
+                section.content
+                    div.row
+                        block content
             include ./footer.jade
         script(src='/stylesheets/admin/bower_components/jquery/dist/jquery.min.js')
         script(src='/stylesheets/admin/bower_components/jquery-ui/jquery-ui.min.js')

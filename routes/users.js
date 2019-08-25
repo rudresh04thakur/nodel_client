@@ -139,13 +139,30 @@ router.get('/login',function(req,res,next){
   res.render('users/login')
 })
 
+router.get('/logout',function(req,res,next){
+  // req.session.isLogin = false;
+  // delete(req.session.user);
+  req.session.destroy(function(err){
+    console.log('Error',err);
+  })
+  res.redirect('/users/login');
+})
+
+
 router.post('/login',function(req,res,next){
   var userModel = mongoose.model('user', Users);
-  userModel.findOne({'email':req.body.email,'password':req.body.password},function(err,data) {
+  userModel.findOne({'email':req.body.email,'password':req.sanitize(req.body.password)},function(err,data) {
     if (err) {
       console.log("Error ", err);
     } else {
-      console.log(data)
+      req.session.user= {}
+      req.session.user['email'] = req.body.email;
+      req.session['isLogin'] = true;
+      // req.session.save(function(sessionError){
+      //   console.log("Session Error", sessionError);
+      //   res.redirect('/users/login');
+      // })
+      console.log("Session Data in Users", req.session)
       res.redirect('/admin');
     }
   })

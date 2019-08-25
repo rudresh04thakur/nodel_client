@@ -22,43 +22,26 @@ aside.main-sidebar
     ul.sidebar-menu(data-widget='tree')
       li.header MAIN NAVIGATION
       li.active.treeview
-        a(href='#')
+        a(href='/admin')
           i.fa.fa-dashboard
           span Dashboard
           span.pull-right-container
             i.fa.fa-angle-left.pull-right
-        ul.treeview-menu
-          li.active
-            a(href='index.html')
-              i.fa.fa-circle-o
-              |  Dashboard v1
-          li
-            a(href='index2.html')
-              i.fa.fa-circle-o
-              |  Dashboard v2
       li.treeview
-        a(href='#')
+        a(href='/admin/products/index')
           i.fa.fa-files-o
-          span Layout Options
+          span Products
           span.pull-right-container
             span.label.label-primary.pull-right 4
         ul.treeview-menu
           li
-            a(href='pages/layout/top-nav.html')
+            a(href='/admin/products')
               i.fa.fa-circle-o
-              |  Top Navigation
+              |  List
           li
-            a(href='pages/layout/boxed.html')
+            a(href='/admin/products/add')
               i.fa.fa-circle-o
-              |  Boxed
-          li
-            a(href='pages/layout/fixed.html')
-              i.fa.fa-circle-o
-              |  Fixed
-          li
-            a(href='pages/layout/collapsed-sidebar.html')
-              i.fa.fa-circle-o
-              |  Collapsed Sidebar
+              |  Add
       li
         a(href='pages/widgets.html')
           i.fa.fa-th

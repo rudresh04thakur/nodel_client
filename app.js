@@ -4,6 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require('method-override')
+var expressSanitizer = require('express-sanitizer');
+var session = require('express-session')
+var bodyParser = require('body-parser')
+
+
+//var upload = multer({ dest: '/public/uploads/' })
 
 ////MongoDb Connection
 var mongoose = require('mongoose');
@@ -22,6 +28,7 @@ db.once('open', function () {
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
+var productsRouter = require('./routes/products');
 
 var app = express();
 
@@ -31,12 +38,31 @@ app.set('view engine', 'jade');
 
 
 app.use(logger('dev'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.json())
+
 app.use(cookieParser());
 //app.use('/admin', express.static('./node_modules/admin-lte-express/public'))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+app.use(expressSanitizer());
+
+// if (app.get('env') === 'production') {
+//   app.set('trust proxy', 1) // trust first proxy
+//   sess.cookie.secure = true // serve secure cookies
+// }
+app.use(session({
+  secret: 'rudresh04thakur@gmail.com',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false,maxAge: 1200000 },
+  isLogin:false
+}))
+
 
 app.use(function(req,res,next){
   req.db = db;
@@ -48,6 +74,7 @@ app.use(function(req,res,next){
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin',adminRouter);   
+app.use('/admin/products',productsRouter);
 //app.use('/admin', require('admin-lte-express'));
 
 //
