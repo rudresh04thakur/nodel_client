@@ -1,0 +1,52 @@
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Hover Data Table</h3>
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table id="example2" class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Weight</th>
+                <th>Type</th>
+                <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let product of products">
+                <td>{{product['_id']}}</td>
+                <td>{{product['image']}}</td>
+                <td>{{product['name']}}</td>
+                <td>{{product['price']}}</td>
+                <td>{{product['weight']}}</td>
+                <td>{{product['type']}}</td>
+                <td>
+                  <a class="btn btn-info" style="margin-right: 10px" title="Edit" [routerLink]="['edit','id']">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a class="btn btn-success" style="margin-right: 10px" title="View" [routerLink]="['view','id']">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                  <button class="btn btn-danger" title="Delete" (click)="delete(id)">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+              
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+   
